@@ -1,5 +1,7 @@
 /*
 
+http://www.waterrower.biz/en/accessories_software_spec.htm
+
 Byte 0 Identification Number = FEh
 Byte 1 Distance covered in last second in 0.1m units (as used by the distance display)
 
@@ -8,6 +10,8 @@ Byte 1 Current no of Strokes per minute (equal to the displayed stroke rate)
 Byte 2 Current Speed in 0.1m/s units (equal to the displayed speed)
 
 */
+
+"use strict";
 
 const { PerformanceObserver, performance } = require('perf_hooks');
 
@@ -51,7 +55,7 @@ exports.getStreamValueRaw = function () {
 
 module.exports.readStream = function(myByte){
 
-    byteValue =  parseInt(myByte,16);
+    var byteValue =  parseInt(myByte,16);
 
     if (lastByte == 'fe'){
         partialDistance = byteValue;
@@ -78,8 +82,8 @@ module.exports.readStream = function(myByte){
 
 function  format_sec(seconds) {
 
-    measuredTime = new Date(null);
+    var measuredTime = new Date(null);
     measuredTime.setSeconds(parseInt(seconds)); // specify value of SECONDS
-    MHSTime = measuredTime.toISOString().substr(11, 8);
+    var MHSTime = measuredTime.toISOString().substr(11, 8);
     return MHSTime;
 }
