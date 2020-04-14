@@ -1,0 +1,27 @@
+{
+  "name": "wr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mystream.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "serialport": "^8.0.7",
+    "yargs": "^15.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siggimule/waterrower-monitor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/siggimule/waterrower-monitor/issues"
+  },
+  "homepage": "https://github.com/siggimule/waterrower-monitor#readme"
+}

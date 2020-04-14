@@ -11,19 +11,20 @@ Byte 2 Current Speed in 0.1m/s units (equal to the displayed speed)
 
 */
 
-"use strict";
+"use strict"
 
-const { PerformanceObserver, performance } = require('perf_hooks');
+var partialDistance, totalDistance, currentStrokerate, totalStrokes, currentSpeed, lastByte, secondByte, sessionStartDate
 
-var partialDistance, totalDistance, currentStrokerate, totalStrokes, currentSpeed, lastByte, secondByte
-
-partialDistance = 0;
-totalDistance = 0;
-currentStrokerate = 0;
-totalStrokes = 0;
-currentSpeed = 1;
-lastByte = 0;
-secondByte = false;
+partialDistance = 0
+totalDistance = 0
+currentStrokerate = 0
+totalStrokes = 0
+currentSpeed = 1
+lastByte = 0
+secondByte = false
+sessionStartDate = Date.now()
+var sessionElapsedTime = 0
+var timestamp = 0
 
 
 
@@ -31,59 +32,44 @@ secondByte = false;
 
 exports.getStreamValue = function () {
     return {
-        timestamp: Date.now(),
-        partialDistance: partialDistance / 10,
-        totalDistance: totalDistance / 10,
-        currentStrokerate: currentStrokerate,
-        totalStrokes: totalStrokes,
-        currentSpeed: currentSpeed,
-        split500: format_sec(5000 / currentSpeed)
-    };
-};
-
-exports.getStreamValueRaw = function () {
-    return {
-        timestamp: Date.now(),
+        timestamp: timestamp,
+        sessionStartDate : sessionStartDate,
+        sessionElapsedTime : timestamp - sessionStartDate,
         partialDistance: partialDistance,
         totalDistance: totalDistance,
         currentStrokerate: currentStrokerate,
         totalStrokes: totalStrokes,
         currentSpeed: currentSpeed
-    };
-};
+    }
+}
+
 
 
 module.exports.readStream = function(myByte){
 
-    var byteValue =  parseInt(myByte,16);
+    var byteValue =  parseInt(myByte,16)
+    timestamp = Date.now()
 
     if (lastByte == 'fe'){
-        partialDistance = byteValue;
-        totalDistance += partialDistance;
+        partialDistance = byteValue
+        totalDistance += partialDistance
 
     }
 
     if (lastByte == 'ff'){
-        currentStrokerate = byteValue;
-        totalStrokes++;
-        secondByte = true;
+        currentStrokerate = byteValue
+        totalStrokes++
+        secondByte = true
     }
 
     if ((secondByte == true) && (lastByte != 'ff') ){
-        currentSpeed = byteValue;
-        secondByte = false; 
+        currentSpeed = byteValue
+        secondByte = false 
         
     }
     
-    lastByte = myByte;     
+    lastByte = myByte     
 
 }
 
 
-function  format_sec(seconds) {
-
-    var measuredTime = new Date(null);
-    measuredTime.setSeconds(parseInt(seconds)); // specify value of SECONDS
-    var MHSTime = measuredTime.toISOString().substr(11, 8);
-    return MHSTime;
-}
