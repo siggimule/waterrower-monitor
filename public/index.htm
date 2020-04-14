@@ -16,7 +16,7 @@
         function myTimer() {
             var d = new Date();
             var t = d.toLocaleTimeString();
-            document.getElementById("screen").innerHTML = t;
+           // document.getElementById("screen").innerHTML = t;
 
             loadValue();
         }      
@@ -27,17 +27,14 @@
                  var x = myObj.timestamp - myObj.sessionStartDate
                  var d = new Date(myObj.sessionStartDate);
                  //var d = new Date(myObj.timestamp);
-                 document.getElementById("a").innerHTML = format_sec(myObj.sessionElapsedTime / 1000)
-                 document.getElementById("b").innerHTML = (JSON.stringify(myObj.totalDistance) / 10 )+  " meter"
-                 document.getElementById("c").innerHTML = JSON.stringify(myObj.currentStrokerate) + " spm"
-                 document.getElementById("d").innerHTML = JSON.stringify(myObj.totalStrokes) + " strokes"
-                 document.getElementById("e").innerHTML = format_sec (5000 / JSON.stringify(myObj.currentSpeed)) + " split"
-
-                document.getElementById("f").innerHTML = String(d.getHours())  + ":"  + String(d.getMinutes())  + ":" + String(d.getSeconds())
-
-
-                 
-                 //alert("Data: " + data + "\nStatus: " + status);
+                 document.getElementById("sessionElapsedTime").innerHTML = format_sec(myObj.sessionElapsedTime / 1000)
+                 document.getElementById("totalDistance").innerHTML = (JSON.stringify(myObj.totalDistance) / 10 )+  " meter"
+                 document.getElementById("spm").innerHTML = JSON.stringify(myObj.currentStrokerate) + " spm"
+                 document.getElementById("totalStrokes").innerHTML = JSON.stringify(myObj.totalStrokes) + " strokes"
+                 document.getElementById("splitTime").innerHTML = format_sec (5000 / JSON.stringify(myObj.currentSpeed)) + " split"
+                 document.getElementById("sessionStartTime").innerHTML = String(d.getHours())  + ":"  + String(d.getMinutes())  + ":" + String(d.getSeconds())
+                 myMove(myObj.totalDistance / 100)   
+                
              });
            
         }
@@ -50,41 +47,71 @@
             return MHSTime
             }
 
+            function myMove(meter) {
+                var elem = document.getElementById("animate")  
+                elem.style.left = meter + "px"; 
+            }
+
     </script>
-    <link rel="stylesheet" type="text/css" href="mystyle.css">  
+    <link rel="stylesheet" type="text/css" href="mystyle2.css">  
 
 
    </head>
 
+    <body>
+
+        <div class="topnav">
+            <h1 class=multicolor>gROW!</h1>
+          </div>
+
+
+<!-- Side navigation -->
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">Monitor</a>
+    <a href="#">Dashboard</a>
+    <a href="#">Admin</a>
+    <a href="#">Console</a>
+  </div>
+
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+</script>
+  
+    <div class="cards">
+        <div class="card", id="sessionElapsedTime">ROW!</div>
+        <div class="card", id="splitTime">ROW!</div>
+        <div class="card", id="spm">ROW!</div>
+        <div class="card", id="totalDistance">ROW!</div>
+        <div class="card", id="totalStrokes">ROW!</div>
+        <div class="card", id="sessionStartTime">ROW!</div>              
+     </div>  
+
+     
+    <div class="card2", id="race">
+        <div id ="animate"></div>
+    </div>
+    <p><button onclick="myMove()">Click Me</button></p> 
+
+    <script>
+        
+        </script>
+    
 
 
    
-    <body>
+   <div class="footer">
+    <h6 style="text-align: center;" > version 0.1 </h6>
+  </div>    
 
-
-       <div class="navbar">
-        <a href="#home">Home</a>
-        <a href="#admin">Admin</a>
-        <a href="#console">Console</a>
-    
-
-      </div>
-
-      <div id="screen", title="wr">palaver</div>
-      
-      <div class="main">
-        <div class="cards">
-            <div class="card", id="a">TWO</div>
-            <div class="card", id="b">TWO</div>
-            <div class="card", id="c">TWO</div>
-            <div class="card", id="d">TWO</div>
-            <div class="card", id="e">TWO</div>
-            <div class="card", id="f">TWO</div>
-            
-          </div>
-      </div>
-
-
-    </body>
+</body>
 
 </html>
