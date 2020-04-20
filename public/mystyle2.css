@@ -122,7 +122,7 @@ body {
     border-radius: 5px;
     padding: 0rem;  
     margin: auto;
-    height: 15rem;  
+    height: 6rem;  
     max-width: 1200px;
     display: grid;
     position: relative;
@@ -130,12 +130,13 @@ body {
   }
 
   #animate {
-    width: 256px;
-    height: 256px;
+    width: 100px;
+    height: 100px;
     position: absolute;
     background-color: red;
-    top: 10em;
-    background: url('smiley.png') left center;
+    top: 3px;
+    background: url('boat1.svg') left center;
+    
   }
   
   
