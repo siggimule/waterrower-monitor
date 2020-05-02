@@ -2,7 +2,7 @@
   "name": "wr",
   "version": "1.0.0",
   "description": "",
-  "main": "mystream.js",
+  "main": "growserver.js",
   "dependencies": {
     "express": "^4.17.1",
     "serialport": "^8.0.7",

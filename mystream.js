@@ -11,20 +11,21 @@ Byte 2 Current Speed in 0.1m/s units (equal to the displayed speed)
 
 */
 
-"use strict"
+/*jshint esversion: 8 */ 
+"use strict";
 
-var partialDistance, totalDistance, currentStrokerate, totalStrokes, currentSpeed, lastByte, secondByte, sessionStartDate
+let partialDistance, totalDistance, currentStrokerate, totalStrokes, currentSpeed, lastByte, secondByte, sessionStartDate;
 
-partialDistance = 0
-totalDistance = 0
-currentStrokerate = 0
-totalStrokes = 0
-currentSpeed = 1
-lastByte = 0
-secondByte = false
-sessionStartDate = Date.now()
-var sessionElapsedTime = 0
-var timestamp = 0
+partialDistance = 0;
+totalDistance = 0;
+currentStrokerate = 0;
+totalStrokes = 0;
+currentSpeed = 1;
+lastByte = 0;
+secondByte = false;
+sessionStartDate = Date.now();
+let sessionElapsedTime = 0;
+let timestamp = 0;
 
 
 
@@ -33,43 +34,40 @@ var timestamp = 0
 exports.getStreamValue = function () {
     return {
         timestamp: timestamp,
-        sessionStartDate : sessionStartDate,
-        sessionElapsedTime : timestamp - sessionStartDate,
+        sessionStartDate: sessionStartDate,
+        sessionElapsedTime: timestamp - sessionStartDate,
         partialDistance: partialDistance,
         totalDistance: totalDistance,
         currentStrokerate: currentStrokerate,
         totalStrokes: totalStrokes,
         currentSpeed: currentSpeed
-    }
-}
+    };
+};
 
 
 
-module.exports.readStream = function(myByte){
+module.exports.readStream = function (myByte) {
 
-    var byteValue =  parseInt(myByte,16)
-    timestamp = Date.now()
+    let byteValue = parseInt(myByte, 16);
+    timestamp = Date.now();
 
-    if (lastByte == 'fe'){
-        partialDistance = byteValue
-        totalDistance += partialDistance
+    if (lastByte === 'fe') {
+        partialDistance = byteValue;
+        totalDistance += partialDistance;
 
-    }
-
-    if (lastByte == 'ff'){
-        currentStrokerate = byteValue
-        totalStrokes++
-        secondByte = true
     }
 
-    if ((secondByte == true) && (lastByte != 'ff') ){
-        currentSpeed = byteValue
-        secondByte = false 
-        
+    if (lastByte === 'ff') {
+        currentStrokerate = byteValue;
+        totalStrokes = totalStrokes + 1;
+        secondByte = true;
     }
-    
-    lastByte = myByte     
 
-}
+    if ((secondByte === true) && (lastByte !== 'ff')) {
+        currentSpeed = byteValue;
+        secondByte = false;
 
+    }
+    lastByte = myByte;
 
+};

@@ -26,7 +26,7 @@
         
         function loadValue(){
             $.get("http://raspberrypi:8081/value", function(data, status){
-                 var myObj = JSON.parse(data);
+                 var myObj = data;
                  var x = myObj.timestamp - myObj.sessionStartDate
                  var d = new Date(myObj.sessionStartDate);
                  //var d = new Date(myObj.timestamp);
